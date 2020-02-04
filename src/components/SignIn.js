@@ -45,10 +45,9 @@ class SignIn extends React.Component {
         axios.post('https://lambda-mud-test.herokuapp.com/api/login/', this.state.credentials)
         .then(res => {
             console.log('Res', res.data.key)
-
-           localStorage.setItem('token', JSON.stringify(res.data.key));
-           localStorage.setItem('userID', res.data.user);
+           localStorage.setItem('token', JSON.stringify(res.data.key))
             console.log('Signed in with success')
+            this.props.history.push('/Game');
         })
         .catch(err => console.log(err))
     }

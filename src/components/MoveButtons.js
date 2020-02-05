@@ -7,13 +7,34 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
     useEffect(() => {
         document.addEventListener('keydown', event => {
             console.log(event)
+            switch(event.key) {
+                case 'a':
+                    console.log('w')
+                    movePlayer('w')
+                    break
+                case 'w':
+                    console.log('n')
+                    movePlayer('n')
+                    break
+                case 'd':
+                    console.log('e')
+                    movePlayer('e')
+                    break
+                case 's':
+                    console.log('s')
+                    movePlayer('s')
+                    break
+                default:
+                    console.log('hi')
+                    
+            }
         })
-    })
+    },[])
     // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {
           axiosWithAuth()
-          .post('https://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
+          .post('https://cs-build-1.herokuapp.com/api/adv/move/', {"direction": dir})
           .then(res => {
               if(res.data.error_msg == ""){
                   console.log(res);

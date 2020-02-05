@@ -3,12 +3,11 @@ import axios from "axios";
 
 export const axiosWithAuth = () => {
     const token = localStorage.getItem("token");
-    console.log('token', token)
 
     return axios.create({
-        baseURL: 'https://cs-bw1-be.herokuapp.com/',
+        baseURL: 'https://cs-build-1.herokuapp.com/',
         headers: {
-            Authorization: "Token 3a314328b30af2e44eab98ff7b45d1c4e79689d7"
+            Authorization: "Token 654a676c384a277c9f30f138311543a92124d9e4"
         }
     });
 };

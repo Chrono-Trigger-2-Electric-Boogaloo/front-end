@@ -1,10 +1,14 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 // import { charSelect, initChar } from '../reducers/charReducer';
 
 const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc }) => {
 
-    
+    useEffect(() => {
+        document.addEventListener('keydown', event => {
+            console.log(event)
+        })
+    })
     // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {

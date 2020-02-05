@@ -2,26 +2,25 @@ import React, { useState, useReducer } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 // import { charSelect, initChar } from '../reducers/charReducer';
 
-const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch }) => {
+const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc }) => {
 
-    const [desc, setDesc] = useState('')
+    
     // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {
           axiosWithAuth()
-          .post('http://cs-build-1.herokuapp.com/api/adv/move/', {"direction": dir})
+          .post('https://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
           .then(res => {
               if(res.data.error_msg == ""){
-                  console.log(charXPosition, charYPosition)
-                  if (dir === 'n'){
-                      setCharYPosition(charYPosition - 32)
-                    } else if (dir === 's'){
-                        setCharYPosition(charYPosition + 32)
-                    } else if (dir === 'e'){
-                        setCharXPosition(charXPosition + 32)
-                    } else if (dir === 'w'){
-                        setCharXPosition(charXPosition - 32)
-                    }
+                  console.log(res);
+                let title = res.data.title
+                title = title.split(',')
+                setCharYPosition(parseInt(title[0])*-32)
+                setCharXPosition(parseInt(title[1])*32)
+                
+                if(res.data.description != currentMap){
+                    setCurrentMap(res.data.description);
+                }
                 } else{
                     
                 }
@@ -32,7 +31,7 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
 
     return(
         <div className='right-container'>
-            <p>{desc}</p>
+            <p>{desc=="field" ? "THE FIELD OF AGONY": desc=="dungeon" ? "HAPPY CLAM DUNGEON" : desc=="house" ? "BABY CHIMKIN'S ABODE" : desc=="basement" ? "PEEPER'S CAVERN" : null}</p>
         <div className='movement-buttons'>
             <img src='./uparrow.png' onClick={()=>movePlayer('n')} />
             <div>

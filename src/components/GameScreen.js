@@ -1,16 +1,16 @@
 import React, { useReducer } from 'react'
 import { charSelect, initChar } from '../reducers/charReducer'
 
-const GameScreen = ({ charXPosition, charYPosition, state }) => {
-
+const GameScreen = ({ charXPosition, charYPosition, state, currentMap }) => {
     const charStyle ={
-        transform: `translate(${charXPosition}px, ${charYPosition}px)`
+        transform: `translate(${charXPosition}px, ${charYPosition}px)`,
+        transition: "0.3s"
     }
 
     return(
         <div className='game-screen-container'>
             <div className='game-bg'>
-                <img src='./field.png' />
+                <img src={`./${currentMap}.png`} />
                 <div style={charStyle} className='game-char'>
                     <img src={`./${state.current}.png`}/>
                 </div>

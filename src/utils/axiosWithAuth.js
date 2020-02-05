@@ -5,9 +5,10 @@ export const axiosWithAuth = () => {
     const token = localStorage.getItem("token");
 
     return axios.create({
-        baseURL: 'https://cs-build-1.herokuapp.com/',
+        baseURL: 'https://chronotrigger-remake.herokuapp.com/',
         headers: {
-            Authorization: "Token 654a676c384a277c9f30f138311543a92124d9e4"
+            // Authorization: "Token fd80ff4bdfaced495a7991320427a82b98b3a98b"
+            Authorization: "Token 2a184fd0859a03d6f2d24303413a640796645905"
         }
     });
 };

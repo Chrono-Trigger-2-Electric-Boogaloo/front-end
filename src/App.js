@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Route } from "react-router-dom";
+import PrivateRoute from './utils/PrivateRoute'
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp'
-import React, { useEffect } from 'react';
 import './App.css';
 import Game from './components/Game'
 
@@ -9,9 +10,10 @@ function App() {
 
   return (
     <div className="App">
-      <SignUp />
-      <SignIn/>
-      <Game />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/signin" component={SignIn} />
+      <PrivateRoute path="/play" component={Game} />
+
     </div>
   );
 }

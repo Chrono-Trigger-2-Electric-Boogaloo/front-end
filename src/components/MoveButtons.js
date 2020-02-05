@@ -1,10 +1,14 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 // import { charSelect, initChar } from '../reducers/charReducer';
 
 const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc }) => {
 
-    
+    useEffect(() => {
+        document.addEventListener('keydown', event => {
+            console.log(event)
+        })
+    })
     // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {
@@ -31,7 +35,7 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
 
     return(
         <div className='right-container'>
-            <p>{desc=="field" ? "THE FIELD OF AGONY": desc=="dungeon" ? "HAPPY CLAM DUNGEON" : desc=="house" ? "BABY CHIMKIN'S ABODE" : desc=="basement" ? "PEEPER'S CAVERN" : null}</p>
+            <p className='world-desc'>{desc=="field" ? "THE FIELD OF AGONY": desc=="dungeon" ? "HAPPY CLAM DUNGEON" : desc=="house" ? "BABY CHIMKIN'S ABODE" : desc=="basement" ? "PEEPER'S CAVERN" : null}</p>
         <div className='movement-buttons'>
             <img src='./uparrow.png' onClick={()=>movePlayer('n')} />
             <div>

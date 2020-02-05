@@ -47,7 +47,7 @@ class SignIn extends React.Component {
             console.log('Res', res.data.key)
            localStorage.setItem('token', JSON.stringify(res.data.key))
             console.log('Signed in with success')
-            this.props.history.push('/Game');
+            this.props.history.push('/play');
         })
         .catch(err => console.log(err))
     }

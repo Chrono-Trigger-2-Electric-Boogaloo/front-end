@@ -1,14 +1,16 @@
-import axios from 'axios';
+import axios from "axios";
 
-const axiosWithAuth =()=>{
-    const key = localStorage.getItem('key');
+
+export const axiosWithAuth = () => {
+    const token = localStorage.getItem("token");
+    console.log('token', token)
 
     return axios.create({
-        baseURL: 'https://lambda-mud-test.herokuapp.com/',
-        headers:{
-            Authorization: key,
+        baseURL: 'https://cs-bw1-be.herokuapp.com/',
+        headers: {
+            Authorization: "Token 3a314328b30af2e44eab98ff7b45d1c4e79689d7"
         }
-    })
-}
+    });
+};
 
 export default axiosWithAuth;

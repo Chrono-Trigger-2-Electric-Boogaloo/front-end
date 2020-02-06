@@ -5,11 +5,13 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp'
 import './App.css';
 import Game from './components/Game'
+import TItleScreen from './components/TitleScreen';
 
 function App() {
 
   return (
     <div className="App">
+      <Route exact path='/' component={TItleScreen}/>
       <Route path="/signup" component={SignUp} />
       <Route path="/signin" component={SignIn} />
       <PrivateRoute path="/play" component={Game} />

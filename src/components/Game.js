@@ -11,6 +11,31 @@ const Game = () => {
     const [currentMap, setCurrentMap] = useState();
     const [state, dispatch] = useReducer(charSelect, initChar)
     const [desc, setDesc] = useState('')
+    const [modalTrigger, setModalTrigger] = useState('')
+
+    const closeModal = () => {
+        document.removeEventListener('keydown', closeModal)
+        setModalTrigger('')
+    }
+
+    useEffect(() => {
+        console.log(currentMap)
+        if (currentMap=== 'dungeon'){
+            if(charYPosition === -64 && charXPosition === 96){
+                console.log(modalTrigger)
+                setModalTrigger('key')
+                document.addEventListener('keydown', closeModal)
+            }
+        } else if (currentMap === 'house'){
+            console.log(charYPosition, charXPosition)
+            if (charXPosition === 96 && charYPosition === -96 || charYPosition === -64){
+                setModalTrigger('message')
+                document.addEventListener('keydown', closeModal)
+            }
+            
+        }
+    }, [charXPosition, charYPosition])
+
     useEffect(()=>{
         console.log('here')
             axiosWithAuth()
@@ -40,6 +65,9 @@ const Game = () => {
                 currentMap={currentMap}
                 />: null
             }
+            <div className='modals'>
+                {modalTrigger === 'key' ? <p>You got the key! <br/> <span className='cont-txt'>PRESS ANY KEY TO CONTINUE</span></p> : modalTrigger === 'message' ? <p>There's a message here.<br/> <span className='cont-txt'>PRESS ANY KEY TO CONTINUE</span></p> : null}
+            </div>
             </div>
             <div className='game-right'>
                 <MoveButtons 

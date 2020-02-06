@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 const LandingPage = () => {
     const history = useHistory()
     useEffect(() => {
-        document.addEventListener('keydown', e => history.push('./index2'))
+        document.addEventListener('keydown', e => history.push('/index2'))
     }, [])
     return(
         <div className='landing-page'>

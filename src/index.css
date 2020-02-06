@@ -5,14 +5,15 @@ body{
 .App{
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
   height: 100vh;
 }
 
 .game-container{
   position: absolute;
-  top: 22%;
-  left: 30%;
+  top: 18.5%;
+  left: 29.5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,6 +23,7 @@ body{
 } 
 
 .game-right{
+  color: white;
   display: flex;
   align-items: center;
   width: 30%;
@@ -32,10 +34,21 @@ body{
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .movement-buttons img{
-  width: 25%;
+  width: 30px;
+}
+
+.movement-buttons p{
+  margin: 4px 0;
+  font-size: 30px;
+  color: #a3a3a3;
+}
+
+.center-buttons{
+  display: block;
 }
 
 .world-desc{
@@ -44,7 +57,7 @@ body{
 }
 
 .left-arrow{
-  margin-right: 20%;
+  margin-right: 25px;
 }
 
 .game-bg{
@@ -77,4 +90,60 @@ body{
   bottom: 20px;
   color: white;
   margin-bottom: 2vh;
+}
+
+.bg-img{
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.main-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  max-height: 618px;
+}
+
+.menu{
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  color: white;
+}
+
+.menu a{
+  text-decoration: none;
+  color: white;
+}
+
+.signup, .signin{
+  position: absolute;
+  top: 32%;
+  left: 34%;
+  
+}
+
+.signup form, .signin form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signup form input, .signin form input{
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 4px;
+}
+
+.signup form button, .signin form button{
+  border-radius: 4px;
+  padding: 4px;
+  width: 80%;
+}
+
+.login-error{
+  margin-top: 10px;
+  max-width: 300px;
 }

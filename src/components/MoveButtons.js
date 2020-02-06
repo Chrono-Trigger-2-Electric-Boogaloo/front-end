@@ -34,7 +34,7 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
 
         const movePlayer = (dir) => {
           axiosWithAuth()
-          .post('https://cs-build-1.herokuapp.com/api/adv/move/', {"direction": dir})
+          .post('https://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
           .then(res => {
               if(res.data.error_msg == ""){
                   console.log(res);
@@ -56,14 +56,14 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
 
     return(
         <div className='right-container'>
-            <p className='world-desc'>{desc=="field" ? "THE FIELD OF AGONY": desc=="dungeon" ? "HAPPY CLAM DUNGEON" : desc=="house" ? "BABY CHIMKIN'S ABODE" : desc=="basement" ? "PEEPER'S CAVERN" : null}</p>
+            <p className='world-desc'>{desc=="field" ? "FIELD OF AGONY": desc=="dungeon" ? "HAPPY CLAM DUNGEON" : desc=="house" ? "ABODE OF BABY CHIMKIN" : desc=="basement" ? "PEEPERS CAVERN" : null}</p>
         <div className='movement-buttons'>
-            <img src='./uparrow.png' onClick={()=>movePlayer('n')} />
-            <div>
-            <img className='left-arrow' src='./leftarrow.png' onClick={()=>movePlayer('w')}/>
-            <img src='./rightarrow.png' onClick={()=>movePlayer('e')} />
+            <img src='./wup.png' onClick={()=>movePlayer('n')} />
+            <div className='center-buttons'>
+            <img className='left-arrow' src='./aleft.png' onClick={()=>movePlayer('w')}/>
+            <img src='./dright.png' onClick={()=>movePlayer('e')} />
             </div>
-            <img src='./downarrow.png' onClick={()=>movePlayer('s')} />
+            <img src='./sdown.png' onClick={()=>movePlayer('s')} />
         </div>
         {state.avail.map(char => <img src={`./${char}.png`} onClick={()=>dispatch({type: 'SET_CHAR', payload: char})}/>)}
         {/* <img src='./julie.png' /><img src='./ryan.png'/><img src='./isla.png'/> */}

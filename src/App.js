@@ -1,7 +1,6 @@
-import React from 'react';
-import SignIn from './components/SignIn';
+import React, { useEffect } from 'react';import SignIn from './components/SignIn';
 import SignUp from './components/SignUp'
-import React, { useEffect } from 'react';
+
 import './App.css';
 import Game from './components/Game'
 

@@ -34,7 +34,7 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
 
         const movePlayer = (dir) => {
           axiosWithAuth()
-          .post('https://cs-build-1.herokuapp.com/api/adv/move/', {"direction": dir})
+          .post('http://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
           .then(res => {
               if(res.data.error_msg == ""){
                   console.log(res);

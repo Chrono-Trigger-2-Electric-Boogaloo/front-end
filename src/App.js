@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Route } from "react-router-dom";
+import React from 'react';
+import { Route, Switch } from "react-router-dom";
 import PrivateRoute from './utils/PrivateRoute'
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp'
@@ -12,12 +12,13 @@ function App() {
 
   return (
     <div className="App">
-      <Route path="/index" component={LandingPage} />
+      <Switch>
+      <Route exact path="/index" component={LandingPage} />
       <Route path="/index2" component={LandingPage2} />
       <Route path="/signup" component={SignUp} />
       <Route path="/signin" component={SignIn} />
       <PrivateRoute path="/play" component={Game} />
-
+      </Switch>
     </div>
   );
 }

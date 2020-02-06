@@ -1,44 +1,25 @@
 import React from 'react';
 import axios from 'axios';
-import styled from 'styled-components'
-
-const StyledSignUp = styled.div `
-height: 105vh;
-margin: 0 auto;
-background-image: url('mostafa-meraji-GKUe0gaACzs-unsplash.jpg')
-
-`
-const Card = styled.div`
-background: rgb(254, 207, 140);
-margin-left: 30%;
-width: 25%;
-border-radius: 10%;
-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-transition: 0.3s;
-padding: 2px 16px;
-:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
-`
-
-const Inputs = styled.div`
-padding-bottom:5%;
-`
 
 class SignUp extends React.Component{
-    state ={
-        credentials: {
-            username: '',
-            password1: '',
-            password2: ''
+    constructor(props){
+        super(props)
+        this.state ={
+            credentials: {
+                username: '',
+                password1: '',
+                password2: ''
+            }
         }
     }
+    
     addUser = e => {
         e.preventDefault();
-        axios.post('https://cs-build-1.herokuapp.com/api/registration/ ', this.state.credentials)
+        axios.post('https://chronotrigger-remake.herokuapp.com/api/registration/ ', this.state.credentials)
         .then(res => {
             localStorage.setItem('token', res.data.key)
             console.log('User created', res.data.key)
+            this.props.history.push('/play');
         })
         .catch(err => {
             console.log(err)
@@ -54,14 +35,12 @@ class SignUp extends React.Component{
     };
     render(){ 
     return(
-        <StyledSignUp>
-            <Card>
-            <h1>Our Game</h1>
-            <p>Sign Up Here!</p>
-            
+        <div className='main-container'>
+            <img className='bg-img' src='./mainbg.jpeg'/>
+            <div className='signup'>    
             <form
             onSubmit={this.addUser}>
-                <Inputs>
+               
                 <input
                 name="username"
                 type="text"
@@ -85,10 +64,10 @@ class SignUp extends React.Component{
                 onChange={this.handleChange}
                 required/>
                 <button>Sign Up!</button>
-                </Inputs>
+                
             </form>
-            </Card>
-        </StyledSignUp>
+            </div>
+        </div>
     )}
 }
 

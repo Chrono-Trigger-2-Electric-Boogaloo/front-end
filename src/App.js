@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Route } from "react-router-dom";
-=======
 import { Route, Switch } from "react-router-dom";
->>>>>>> 5bea170d8a3845ecf24cfc7e1f47591a417432b1
 import PrivateRoute from './utils/PrivateRoute'
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp'

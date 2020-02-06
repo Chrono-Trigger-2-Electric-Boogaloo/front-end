@@ -14,11 +14,7 @@ const Game = () => {
     useEffect(()=>{
         console.log('here')
             axiosWithAuth()
-<<<<<<< HEAD
-            .get('http://chronotrigger-remake.herokuapp.com/api/adv/init/')
-=======
             .get('https://chronotrigger-remake.herokuapp.com/api/adv/init/')
->>>>>>> 5bea170d8a3845ecf24cfc7e1f47591a417432b1
             .then(res => {
                 console.log(res)
                 let title = res.data.title

@@ -22,6 +22,16 @@ body{
   width: 60vh; */
 } 
 
+.video-credits{
+  position: absolute;
+  top: 14.5%;
+  left: 29.4%;
+} 
+
+.hide-container{
+  display:none;
+}
+
 .game-right{
   color: white;
   display: flex;

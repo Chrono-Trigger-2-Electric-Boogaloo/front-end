@@ -2,7 +2,7 @@ import React, { useState, useReducer, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 // import { charSelect, initChar } from '../reducers/charReducer';
 
-const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc }) => {
+const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc, specialRoom, setSpecialRoom }) => {
 
     useEffect(() => {
         document.addEventListener('keydown', event => {
@@ -42,6 +42,13 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
                 title = title.split(',')
                 setCharYPosition(parseInt(title[0])*-32)
                 setCharXPosition(parseInt(title[1])*32)
+
+                if(title[2]){
+                    // alert(title[2])
+                    setSpecialRoom(title[2])
+                }else {
+                    setSpecialRoom()
+                }
                 
                 if(res.data.description != currentMap){
                     setCurrentMap(res.data.description);

@@ -1,34 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 
-const StyledSignIn = styled.div `
-height: 105vh;
-margin: 0 auto;
-background-image: url('mostafa-meraji-GKUe0gaACzs-unsplash.jpg')
-
-`
-const Card = styled.div`
-background: rgb(254, 207, 140);
-margin-left: 30%;
-width: 25%;
-border-radius: 10%;
-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-transition: 0.3s;
-padding: 2px 16px;
-:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
-`
-
-const Inputs = styled.div`
-padding-bottom:5%;
-`
 class SignIn extends React.Component {
-    state={ 
+    constructor(props){
+        super(props)
+
+    this.state={ 
         credentials:{
             username: '',
             password: ''
+        },
+        error: ''
         }
     };
     handleChange = e => {
@@ -42,23 +24,27 @@ class SignIn extends React.Component {
     handleSubmit = e => {
         // let localStorage;
         e.preventDefault();
-        axios.post('http://chronotrigger-remake.herokuapp.com/api/login/', this.state.credentials)
+        axios.post('https://chronotrigger-remake.herokuapp.com/api/login/', this.state.credentials)
         .then(res => {
             console.log('Res', res.data.key)
            localStorage.setItem('token', res.data.key)
             console.log('Signed in with success')
             this.props.history.push('/play');
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            this.setState({
+                ...this.state,
+                error: 'Incorrect email or password'
+            })
+            console.log(err)
+        })
     }
     render(){
         return(
-            <StyledSignIn>
+            <div className='main-container'>
+                <img className='bg-img' src='./mainbg.jpeg'/>
+                <div className='signin'>
                 <form onSubmit={this.handleSubmit}>
-                    <Card>
-                    <h1>Our Game</h1>
-                    <p>Login Here!</p>
-                    <Inputs>
                     <input
                     type="text"
                     name="username"
@@ -75,10 +61,12 @@ class SignIn extends React.Component {
                     placeholder="password"
                     required/>
                     <button>Login</button>
-                    </Inputs>
-                    </Card>
+                    <p className='login-error'>
+                        {this.state.error ? this.state.error : null}
+                    </p>
                 </form>
-            </StyledSignIn>
+                </div>
+            </div>
         )
     }
 }

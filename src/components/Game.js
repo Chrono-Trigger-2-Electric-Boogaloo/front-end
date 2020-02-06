@@ -14,7 +14,11 @@ const Game = () => {
     useEffect(()=>{
         console.log('here')
             axiosWithAuth()
+<<<<<<< HEAD
             .get('http://chronotrigger-remake.herokuapp.com/api/adv/init/')
+=======
+            .get('https://chronotrigger-remake.herokuapp.com/api/adv/init/')
+>>>>>>> 5bea170d8a3845ecf24cfc7e1f47591a417432b1
             .then(res => {
                 console.log(res)
                 let title = res.data.title
@@ -27,6 +31,8 @@ const Game = () => {
                   .catch(err => console.log(err.response))
     },[])
     return(
+        <div className='main-container' >
+            <img className='bg-img' src='./mainbg.jpeg' />
         <div className='game-container'>
             <div className='game-left'>
                 {charXPosition != null && charXPosition != null ?
@@ -53,6 +59,7 @@ const Game = () => {
                     setDesc={setDesc}
                     />
             </div>
+        </div>
         </div>
     )
 }

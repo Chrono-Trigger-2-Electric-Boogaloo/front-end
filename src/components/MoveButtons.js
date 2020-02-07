@@ -6,7 +6,7 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
 
     useEffect(() => {
         document.addEventListener('keydown', event => {
-            console.log(event)
+            console.log(charXPosition, charYPosition)
             switch(event.key) {
                 case 'a':
                     console.log('w')

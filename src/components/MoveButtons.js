@@ -6,7 +6,41 @@ import { MainContext } from '../contexts/MainContext';
 
 const MoveButtons = ({ setCharXPosition, setCharYPosition,state, dispatch, setCurrentMap, desc, setDesc, modalTrigger}) => {
     const {unlockedDoor, unlockedBasement, currentMap, charXPosition, charYPosition} = useContext(MainContext)
-
+    // let count = 0
+    // console.log(unlockedBasement)
+    // console.log(unlockedDoor)
+    // const addEL = () => {
+        
+    // }
+    // useEffect(() => {
+    //     // const eventthing = (x) =>{
+    //         //     document.removeEventListener('keydown', eventthing)
+    //         //     movePlayer(x)
+    //         // }
+    //         document.addEventListener('keydown', event => {
+                
+    //         console.log(`current map: ${currentMap}`)
+    //         console.log(`(x, y): (${charXPosition}, ${charYPosition})`)
+    //         switch(event.key) {
+    //             case 'a':
+    //                 movePlayer('w')
+    //                 break
+    //             case 'w':
+    //                 movePlayer('n')
+    //                 break
+    //             case 'd':
+    //                 movePlayer('e')
+    //                 break
+    //             case 's':
+    //                 movePlayer('s')
+    //                 break
+    //             default:
+    //                 movePlayer(null)
+                    
+    //         }
+    //     })
+    
+    // },[modalTrigger])
     // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {

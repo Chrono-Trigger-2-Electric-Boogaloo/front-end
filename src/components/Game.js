@@ -3,26 +3,43 @@ import GameScreen from './GameScreen';
 import MoveButtons from './MoveButtons';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { charSelect, initChar } from '../reducers/charReducer';
+import ReactPlayer from 'react-player';
 import { MainContext } from '../contexts/MainContext';
 
-const Game = () => {
+const Game = (props) => {
+	console.log(props)
 
     const [charXPosition, setCharXPosition] = useState(null)
     const [charYPosition, setCharYPosition] = useState(null)
     const [currentMap, setCurrentMap] = useState();
     const [state, dispatch] = useReducer(charSelect, initChar)
     const [desc, setDesc] = useState('')
-    const [modalTrigger, setModalTrigger] = useState('')
+	const [modalTrigger, setModalTrigger] = useState('')
+	const [specialRoom, setSpecialRoom] = useState();
+	const [gameRunning, setGameRunning] = useState(true);
     const [unlockedBasement, setUnlockedBasement] = useState(false)
     const [unlockedDoor, setUnlockedDoor] = useState(false)
-    // const [isblocked, setBlocked] = useState(false)
+	// const [isblocked, setBlocked] = useState(false)
+	const [music, setMusic] = useState();
 
+	
+	
+
+	const endGame = () =>{
+        setGameRunning(false);
+    }
 
     const closeModal = () => {
         //document.removeEventListener('keydown', closeModal)
         setModalTrigger('')
-    }
+	}
 
+	const closeCrystalModal = () => {
+		props.music.pause();
+		setModalTrigger('')
+		setSpecialRoom('video')
+	}
+	
     const getKey = () => {
         setUnlockedBasement(true)
         closeModal()
@@ -34,10 +51,8 @@ const Game = () => {
     }
 
     useEffect(() => {
-        console.log(currentMap)
         if (currentMap=== 'dungeon'){
             if(charYPosition === -64 && charXPosition === 96){
-                console.log(modalTrigger)
                 setModalTrigger('key')
                 //document.addEventListener('keydown', closeModal)
             }
@@ -53,7 +68,6 @@ const Game = () => {
             }
             
         } else if (currentMap === 'basement'){
-            console.log(charYPosition, charXPosition, currentMap, modalTrigger)
             if (charXPosition === 160 && charYPosition ===-192){
                 setModalTrigger('crystal')
             }
@@ -61,24 +75,26 @@ const Game = () => {
     }, [charXPosition, charYPosition])
 
     useEffect(()=>{
-        console.log('here')
             axiosWithAuth()
             .get('https://chronotrigger-remake.herokuapp.com/api/adv/init/')
             .then(res => {
-                console.log(res)
                 let title = res.data.title
                 title = title.split(',')
                 setCharYPosition(parseInt(title[0])*-32)
                 setCharXPosition(parseInt(title[1])*32)
                 setCurrentMap(res.data.description)
-                setDesc(res.data.description)
+				setDesc(res.data.description)
             })
                   .catch(err => console.log(err.response))
     },[])
     return(
         <div className='main-container' >
             <img className='bg-img' src='./mainbg.jpeg' />
-        <div className='game-container'>
+        <div className={
+					specialRoom !== 'video' 
+						? 'game-container'
+						: 'game-container hide-container'
+				}>
             <div className='game-left'>
                 {charXPosition != null && charXPosition != null ?
                 <GameScreen 
@@ -86,7 +102,9 @@ const Game = () => {
                 charYPosition={charYPosition} 
                 state={state} 
                 dispatch={dispatch}
-                currentMap={currentMap}
+				currentMap={currentMap}
+				specialRoom={specialRoom}
+				setSpecialRoom={setSpecialRoom}
                 />: null
             }
             {modalTrigger ? 
@@ -107,7 +125,7 @@ const Game = () => {
                             <button onClick={closeModal}><span className='cont-text'></span>Continue</button></>)
                         case 'crystal':
                             return (<><p>You gaze into the crystal ball, but swirling smoke obscures your vision.</p>
-                             <button onClick={closeModal}><span className='cont-text'></span>Look Closer</button></>)
+                             <button onClick={closeCrystalModal}><span className='cont-text'></span>Look Closer</button></>)
                         default:
                             return null  
                     }
@@ -135,12 +153,23 @@ const Game = () => {
                         // unlockedDoor={unlockedDoor}
                         // setUnlockedDoor={setUnlockedDoor}
                         // setBlocked={setBlocked}
+                        specialRoom={specialRoom}
+						setSpecialRoom={setSpecialRoom}
                     />
                 </MainContext.Provider>
             </div>
         </div>
+		{gameRunning && specialRoom == 'video' && modalTrigger=='' &&  (
+				<ReactPlayer
+					url="credits.mp4"
+					playing
+					className="video-credits"
+					width="444px"
+					onEnded={endGame}
+				/>
+			)}
         </div>
     )
 }
 
-export default Game
+export default Game;

@@ -45,11 +45,6 @@ const MoveButtons = ({ setCharXPosition, setCharYPosition,state, dispatch, setCu
 
         const movePlayer = (dir) => {
             // setBlocked(false)
-            // console.log(unlockedDoor)
-            // console.log(unlockedBasement)
-            // console.log(currentMap)
-            // console.log(charXPosition)
-            // console.log(charYPosition)
 
 
             // if (unlockedDoor == false && currentMap == 'house' && (charXPosition == 0 && charYPosition == -160)) {
@@ -72,12 +67,10 @@ const MoveButtons = ({ setCharXPosition, setCharYPosition,state, dispatch, setCu
             .post('https://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
             .then(res => {
                 if(res.data.error_msg == ""){
-                    console.log(res);
                     let title = res.data.title
                     title = title.split(',')
                     setCharYPosition(parseInt(title[0])*-32)
                     setCharXPosition(parseInt(title[1])*32)
-                
                     if(res.data.description != currentMap){
                         setCurrentMap(res.data.description);
                     }

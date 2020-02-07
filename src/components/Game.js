@@ -12,6 +12,10 @@ const Game = () => {
     const [state, dispatch] = useReducer(charSelect, initChar)
     const [desc, setDesc] = useState('')
     const [modalTrigger, setModalTrigger] = useState('')
+    const [unlockedBasement, setUnlockedBasement] = useState(false)
+    const [unlockedDoor, setUnlockedDoor] = useState(false)
+    const [isblocked, setBlocked] = useState(false)
+
 
     const closeModal = () => {
         document.removeEventListener('keydown', closeModal)
@@ -81,6 +85,11 @@ const Game = () => {
                     currentMap={currentMap}
                     desc={desc}
                     setDesc={setDesc}
+                    unlockedBasement={unlockedBasement}
+                    setUnlockedBasement={setUnlockedBasement}
+                    unlockedDoor={unlockedDoor}
+                    setUnlockedDoor={setUnlockedDoor}
+                    setBlocked={setBlocked}
                     />
             </div>
         </div>

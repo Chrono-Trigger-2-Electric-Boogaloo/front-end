@@ -22,6 +22,16 @@ const Game = () => {
         setModalTrigger('')
     }
 
+    const getKey = () => {
+        setUnlockedBasement(true)
+        closeModal()
+    }
+
+    const getMessage = () => {
+        setUnlockedDoor(true)
+        closeModal()
+    }
+
     useEffect(() => {
         console.log(currentMap)
         if (currentMap=== 'dungeon'){
@@ -35,9 +45,9 @@ const Game = () => {
             if (charXPosition === 96 && charYPosition === -96 || charXPosition === 96 && charYPosition === -64){
                 setModalTrigger('message')
                 //document.addEventListener('keydown', closeModal)
-            } else if (charYPosition === -160 && charXPosition === 0){ //add unlocked conditional
+            } else if (charYPosition === -160 && charXPosition === 0 && unlockedDoor === false){ //add unlocked conditional
                 setModalTrigger('door')
-            } else if (charYPosition === -256 && charXPosition === 32){
+            } else if (charYPosition === -256 && charXPosition === 32 && unlockedBasement === false){
                 setModalTrigger('trapdoor')
             }
             
@@ -83,21 +93,26 @@ const Game = () => {
                 {function(){
                     switch(modalTrigger){
                         case 'key':
-                          return <p>'About time you showed up!' <br/>You recieved a KEY<br/> </p> 
+                          return (<><p>'About time you showed up!' <br/>You recieved a KEY<br/> </p> 
+                          <button onClick={getKey}><span className='cont-text'></span>Continue</button></>)
                         case 'message':
-                            return <p>There's a message here.</p>
+                            return (<><p>There's a message here.</p>  
+                            <button onClick={getMessage}><span className='cont-text'></span>Continue</button></>)
                         case 'door':
-                            return <p>You have a feeling you're forgetting something...</p>
+                            return (<><p>You have a feeling you're forgetting something...</p>
+                             <button onClick={closeModal}><span className='cont-text'></span>Continue</button></>)
                         case 'trapdoor':
-                            return <p>It's a trap door! It seems to be locked</p>
+                            return (<><p>It's a trap door! It seems to be locked</p>
+                            <button onClick={closeModal}><span className='cont-text'></span>Continue</button></>)
                         case 'crystal':
-                            return <p>You gaze into the crystal ball, but swirling smoke obscures your vision. You lean in closer...</p>
+                            return (<><p>You gaze into the crystal ball, but swirling smoke obscures your vision.</p>
+                             <button onClick={closeModal}><span className='cont-text'></span>Look Closer</button></>)
                         default:
                             return null  
                     }
                 }()}
                 {/* {modalTrigger === 'key' ? <p>'About time you showed up!' <br/>You recieved a KEY<br/> </p> : modalTrigger === 'message' ? <p>There's a message here.</p> : modalTrigger === 'door' ? <p>You have a feeling you're forgetting something...</p> : modalTrigger === 'trapdoor' ? <p>It's a trap door! It seems to be locked</p> : null} */}
-            <button onClick={closeModal}><span className='cont-text'></span>Continue</button>
+           
             </div> : null}
             </div>
             <div className='game-right'>

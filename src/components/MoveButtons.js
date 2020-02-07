@@ -59,12 +59,12 @@ const MoveButtons = ({ setCharXPosition, setCharYPosition,state, dispatch, setCu
         <div className='right-container'>
             <p className='world-desc'>{desc=="field" ? "FIELD OF AGONY": desc=="dungeon" ? "HAPPY CLAM DUNGEON" : desc=="house" ? "ABODE OF BABY CHIMKIN" : desc=="basement" ? "PEEPERS CAVERN" : null}</p>
         <div className='movement-buttons'>
-            <img src='./wup.png' onClick={()=>movePlayer('n')} />
+            <img src='./uparrow.png' onClick={()=>movePlayer('n')} />
             <div className='center-buttons'>
-            <img className='left-arrow' src='./aleft.png' onClick={()=>movePlayer('w')}/>
-            <img src='./dright.png' onClick={()=>movePlayer('e')} />
+            <img className='left-arrow' src='./leftarrow.png' onClick={()=>movePlayer('w')}/>
+            <img src='./rightarrow.png' onClick={()=>movePlayer('e')} />
             </div>
-            <img src='./sdown.png' onClick={()=>movePlayer('s')} />
+            <img src='./downarrow.png' onClick={()=>movePlayer('s')} />
         </div>
         {state.avail.map(char => <img src={`./${char}.png`} onClick={()=>dispatch({type: 'SET_CHAR', payload: char})}/>)}
         {/* <img src='./julie.png' /><img src='./ryan.png'/><img src='./isla.png'/> */}

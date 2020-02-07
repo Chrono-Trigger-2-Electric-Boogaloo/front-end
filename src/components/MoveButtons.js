@@ -1,33 +1,12 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer, useContext, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { MainContext } from '../contexts/MainContext';
 // import { charSelect, initChar } from '../reducers/charReducer';
 
-const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc, unlockedBasement, unlockedDoor, setUnlockedBasement, setUnlockedDoor, setBlocked}) => {
 
-    console.log(`current map: ${currentMap}`)
-    console.log(`(x, y): (${charXPosition}, ${charYPosition})`)
+const MoveButtons = ({ setCharXPosition, setCharYPosition,state, dispatch, setCurrentMap, desc, setDesc, modalTrigger}) => {
+    const {unlockedDoor, unlockedBasement, currentMap, charXPosition, charYPosition} = useContext(MainContext)
 
-    useEffect(() => {
-        document.addEventListener('keydown', event => {
-            switch(event.key) {
-                case 'a':
-                    movePlayer('w')
-                    break
-                case 'w':
-                    movePlayer('n')
-                    break
-                case 'd':
-                    movePlayer('e')
-                    break
-                case 's':
-                    movePlayer('s')
-                    break
-                default:
-                    console.log('hi')
-                    
-            }
-        })
-    },[])
     // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {

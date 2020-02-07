@@ -3,6 +3,7 @@ import GameScreen from './GameScreen';
 import MoveButtons from './MoveButtons';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { charSelect, initChar } from '../reducers/charReducer';
+import { MainContext } from '../contexts/MainContext';
 
 const Game = () => {
 
@@ -14,7 +15,7 @@ const Game = () => {
     const [modalTrigger, setModalTrigger] = useState('')
     const [unlockedBasement, setUnlockedBasement] = useState(false)
     const [unlockedDoor, setUnlockedDoor] = useState(false)
-    const [isblocked, setBlocked] = useState(false)
+    // const [isblocked, setBlocked] = useState(false)
 
 
     const closeModal = () => {
@@ -116,23 +117,26 @@ const Game = () => {
             </div> : null}
             </div>
             <div className='game-right'>
-                <MoveButtons 
-                    state={state} 
-                    dispatch={dispatch} 
-                    charXPosition={charXPosition} 
-                    setCharXPosition={setCharXPosition} 
-                    charYPosition={charYPosition} 
-                    setCharYPosition={setCharYPosition}
-                    setCurrentMap={setCurrentMap}
-                    currentMap={currentMap}
-                    desc={desc}
-                    setDesc={setDesc}
-                    unlockedBasement={unlockedBasement}
-                    setUnlockedBasement={setUnlockedBasement}
-                    unlockedDoor={unlockedDoor}
-                    setUnlockedDoor={setUnlockedDoor}
-                    setBlocked={setBlocked}
+                <MainContext.Provider value={{unlockedDoor, unlockedBasement, currentMap, charXPosition, charYPosition}}>
+                    <MoveButtons 
+                        state={state} 
+                        dispatch={dispatch} 
+                        // charXPosition={charXPosition} 
+                        setCharXPosition={setCharXPosition} 
+                        // charYPosition={charYPosition} 
+                        setCharYPosition={setCharYPosition}
+                        setCurrentMap={setCurrentMap}
+                        // currentMap={currentMap}
+                        desc={desc}
+                        setDesc={setDesc}
+                        modalTrigger={modalTrigger}
+                        // unlockedBasement={unlockedBasement}
+                        // setUnlockedBasement={setUnlockedBasement}
+                        // unlockedDoor={unlockedDoor}
+                        // setUnlockedDoor={setUnlockedDoor}
+                        // setBlocked={setBlocked}
                     />
+                </MainContext.Provider>
             </div>
         </div>
         </div>

@@ -6,22 +6,17 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
 
     useEffect(() => {
         document.addEventListener('keydown', event => {
-            console.log(event)
             switch(event.key) {
                 case 'a':
-                    console.log('w')
                     movePlayer('w')
                     break
                 case 'w':
-                    console.log('n')
                     movePlayer('n')
                     break
                 case 'd':
-                    console.log('e')
                     movePlayer('e')
                     break
                 case 's':
-                    console.log('s')
                     movePlayer('s')
                     break
                 default:

@@ -11,7 +11,38 @@ const Game = () => {
 	const [currentMap, setCurrentMap] = useState();
 	const [state, dispatch] = useReducer(charSelect, initChar);
 	const [desc, setDesc] = useState('');
+	const [modalTrigger, setModalTrigger] = useState('');
 	const [specialRoom, setSpecialRoom] = useState();
+    const [gameRunning, setGameRunning] = useState(true);
+    
+    const endGame = () =>{
+        setGameRunning(false);
+    }
+
+	const closeModal = () => {
+		document.removeEventListener('keydown', closeModal);
+		setModalTrigger('');
+	};
+
+	useEffect(() => {
+		if (currentMap === 'dungeon') {
+			if (charYPosition === -64 && charXPosition === 96) {
+				console.log(modalTrigger);
+				setModalTrigger('key');
+				document.addEventListener('keydown', closeModal);
+			}
+		} else if (currentMap === 'house') {
+			console.log(charYPosition, charXPosition);
+			if (
+				(charXPosition === 96 && charYPosition === -96) ||
+				charYPosition === -64
+			) {
+				setModalTrigger('message');
+				document.addEventListener('keydown', closeModal);
+			}
+		}
+	}, [charXPosition, charYPosition]);
+
 	useEffect(() => {
 		console.log('here');
 		axiosWithAuth()
@@ -23,8 +54,6 @@ const Game = () => {
 				setCharYPosition(parseInt(title[0]) * -32);
 				setCharXPosition(parseInt(title[1]) * 32);
 				if (title[2]) {
-					// alert(title[2])
-					// alert(title[2])
 					setSpecialRoom(title[2]);
 				} else {
 					setSpecialRoom();
@@ -37,43 +66,65 @@ const Game = () => {
 	return (
 		<div className="main-container">
 			<img className="bg-img" src="./mainbg.jpeg" />
-			{/* {specialRoom !== 'video' && ( */}
-				<div className={specialRoom !== "video" ? "game-container": "game-container hide-container"}>
-					<div className="game-left">
-						{charXPosition != null && charXPosition != null ? (
-							<GameScreen
-								charXPosition={charXPosition}
-								charYPosition={charYPosition}
-								state={state}
-								dispatch={dispatch}
-								currentMap={currentMap}
-								specialRoom={specialRoom}
-								setSpecialRoom={setSpecialRoom}
-							/>
-						) : null}
-					</div>
-                    <div 
-                    className={specialRoom !== "video" ? "game-right": "game-right hide-container"}>
-						<MoveButtons
+			<div
+				className={
+					specialRoom !== 'video'
+						? 'game-container'
+						: 'game-container hide-container'
+				}>
+				<div className="game-left">
+					{charXPosition != null && charXPosition != null ? (
+						<GameScreen
+							charXPosition={charXPosition}
+							charYPosition={charYPosition}
 							state={state}
 							dispatch={dispatch}
-							charXPosition={charXPosition}
-							setCharXPosition={setCharXPosition}
-							charYPosition={charYPosition}
-							setCharYPosition={setCharYPosition}
-							setCurrentMap={setCurrentMap}
 							currentMap={currentMap}
-							desc={desc}
-							setDesc={setDesc}
 							specialRoom={specialRoom}
 							setSpecialRoom={setSpecialRoom}
 						/>
+					) : null}
+					<div className="modals">
+						{modalTrigger === 'key' ? (
+							<p>
+								You got the key! <br />{' '}
+								<span className="cont-txt">PRESS ANY KEY TO CONTINUE</span>
+							</p>
+						) : modalTrigger === 'message' ? (
+							<p>
+								There's a message here.
+								<br />{' '}
+								<span className="cont-txt">PRESS ANY KEY TO CONTINUE</span>
+							</p>
+						) : null}
 					</div>
 				</div>
-			{/* )} */}
-            {specialRoom == "video" && 
-            <ReactPlayer url='credits.mp4' playing className="video-credits" width ="444px" />
-            }
+				<div className="game-right">
+					<MoveButtons
+						state={state}
+						dispatch={dispatch}
+						charXPosition={charXPosition}
+						setCharXPosition={setCharXPosition}
+						charYPosition={charYPosition}
+						setCharYPosition={setCharYPosition}
+						setCurrentMap={setCurrentMap}
+						currentMap={currentMap}
+						desc={desc}
+						setDesc={setDesc}
+						specialRoom={specialRoom}
+						setSpecialRoom={setSpecialRoom}
+					/>
+				</div>
+			</div>
+			{gameRunning && specialRoom == 'video' && (
+				<ReactPlayer
+					url="credits.mp4"
+					playing
+					className="video-credits"
+					width="444px"
+					onEnded={endGame}
+				/>
+			)}
 		</div>
 	);
 };

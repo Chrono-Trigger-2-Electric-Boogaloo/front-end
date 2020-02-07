@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const LandingPage = () => {
-	const history = useHistory();
+
+    const history = useHistory()
 
 	const eventthing = () => {
 		document.removeEventListener('keydown', eventthing);

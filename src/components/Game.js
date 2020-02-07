@@ -18,7 +18,7 @@ const Game = () => {
 
 
     const closeModal = () => {
-        document.removeEventListener('keydown', closeModal)
+        //document.removeEventListener('keydown', closeModal)
         setModalTrigger('')
     }
 
@@ -28,15 +28,24 @@ const Game = () => {
             if(charYPosition === -64 && charXPosition === 96){
                 console.log(modalTrigger)
                 setModalTrigger('key')
-                document.addEventListener('keydown', closeModal)
+                //document.addEventListener('keydown', closeModal)
             }
         } else if (currentMap === 'house'){
-            console.log(charYPosition, charXPosition)
+            
             if (charXPosition === 96 && charYPosition === -96 || charXPosition === 96 && charYPosition === -64){
                 setModalTrigger('message')
-                document.addEventListener('keydown', closeModal)
+                //document.addEventListener('keydown', closeModal)
+            } else if (charYPosition === -160 && charXPosition === 0){ //add unlocked conditional
+                setModalTrigger('door')
+            } else if (charYPosition === -256 && charXPosition === 32){
+                setModalTrigger('trapdoor')
             }
             
+        } else if (currentMap === 'basement'){
+            console.log(charYPosition, charXPosition, currentMap, modalTrigger)
+            if (charXPosition === 160 && charYPosition ===-192){
+                setModalTrigger('crystal')
+            }
         }
     }, [charXPosition, charYPosition])
 
@@ -69,9 +78,27 @@ const Game = () => {
                 currentMap={currentMap}
                 />: null
             }
+            {modalTrigger ? 
             <div className='modals'>
-                {modalTrigger === 'key' ? <p>'About time you showed up!' <br/>You recieved a KEY<br/> <span className='cont-txt'>PRESS ANY KEY TO CONTINUE</span></p> : modalTrigger === 'message' ? <p>There's a message here.<br/> <span className='cont-txt'>PRESS ANY KEY TO CONTINUE</span></p> : null}
-            </div>
+                {function(){
+                    switch(modalTrigger){
+                        case 'key':
+                          return <p>'About time you showed up!' <br/>You recieved a KEY<br/> </p> 
+                        case 'message':
+                            return <p>There's a message here.</p>
+                        case 'door':
+                            return <p>You have a feeling you're forgetting something...</p>
+                        case 'trapdoor':
+                            return <p>It's a trap door! It seems to be locked</p>
+                        case 'crystal':
+                            return <p>You gaze into the crystal ball, but swirling smoke obscures your vision. You lean in closer...</p>
+                        default:
+                            return null  
+                    }
+                }()}
+                {/* {modalTrigger === 'key' ? <p>'About time you showed up!' <br/>You recieved a KEY<br/> </p> : modalTrigger === 'message' ? <p>There's a message here.</p> : modalTrigger === 'door' ? <p>You have a feeling you're forgetting something...</p> : modalTrigger === 'trapdoor' ? <p>It's a trap door! It seems to be locked</p> : null} */}
+            <button onClick={closeModal}><span className='cont-text'></span>Continue</button>
+            </div> : null}
             </div>
             <div className='game-right'>
                 <MoveButtons 

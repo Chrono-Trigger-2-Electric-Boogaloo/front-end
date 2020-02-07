@@ -39,14 +39,19 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
             // console.log(charYPosition)
 
 
-            if (unlockedDoor == false && currentMap == 'house' && (charXPosition == 0 && charYPosition == -160)) {
-                console.log('nope here')
-                setBlocked(true)
+            // if (unlockedDoor == false && currentMap == 'house' && (charXPosition == 0 && charYPosition == -160)) {
+            //     console.log('nope here')
+            //     setBlocked(true)
+            //     return
+            // }
+            // if (unlockedBasement == false && currentMap == 'house' && (charXPosition == 32 && charYPosition == -256)) {
+            //     console.log('nope there')
+            //     setBlocked(true)
+            //     return
+            // }
+            if (unlockedDoor === false && currentMap === 'house' && charYPosition === -160 && charXPosition === 0 && dir === 'w'){
                 return
-            }
-            if (unlockedBasement == false && currentMap == 'house' && (charXPosition == 32 && charYPosition == -256)) {
-                console.log('nope there')
-                setBlocked(true)
+            } else if (unlockedBasement == false && currentMap === 'house' && charYPosition === -256 && charXPosition === 32 && dir === 'w'){
                 return
             }
             

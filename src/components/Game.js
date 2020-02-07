@@ -45,9 +45,9 @@ const Game = () => {
             if (charXPosition === 96 && charYPosition === -96 || charXPosition === 96 && charYPosition === -64){
                 setModalTrigger('message')
                 //document.addEventListener('keydown', closeModal)
-            } else if (charYPosition === -160 && charXPosition === 0){ //add unlocked conditional
+            } else if (charYPosition === -160 && charXPosition === 0 && unlockedDoor === false){ //add unlocked conditional
                 setModalTrigger('door')
-            } else if (charYPosition === -256 && charXPosition === 32){
+            } else if (charYPosition === -256 && charXPosition === 32 && unlockedBasement === false){
                 setModalTrigger('trapdoor')
             }
             

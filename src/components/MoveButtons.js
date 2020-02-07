@@ -2,10 +2,11 @@ import React, { useState, useReducer, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 // import { charSelect, initChar } from '../reducers/charReducer';
 
-const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc, specialRoom, setSpecialRoom }) => {
+const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc, specialRoom, setSpecialRoom, unlockedBasement, unlockedDoor, setUnlockedBasement, setUnlockedDoor, setBlocked}) => {
 
     useEffect(() => {
         document.addEventListener('keydown', event => {
+            console.log(event)
             switch(event.key) {
                 case 'a':
                     movePlayer('w')
@@ -28,26 +29,36 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
     // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {
-          axiosWithAuth()
-          .post('https://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
-          .then(res => {
-              if(res.data.error_msg == ""){
-                  console.log(res);
-                let title = res.data.title
-                title = title.split(',')
-                setCharYPosition(parseInt(title[0])*-32)
-                setCharXPosition(parseInt(title[1])*32)
+            // setBlocked(false)
 
-                if(title[2]){
-                    // alert(title[2])
-                    setSpecialRoom(title[2])
-                }else {
-                    setSpecialRoom()
-                }
-                
-                if(res.data.description != currentMap){
-                    setCurrentMap(res.data.description);
-                }
+
+            // if (unlockedDoor == false && currentMap == 'house' && (charXPosition == 0 && charYPosition == -160)) {
+            //     console.log('nope here')
+            //     setBlocked(true)
+            //     return
+            // }
+            // if (unlockedBasement == false && currentMap == 'house' && (charXPosition == 32 && charYPosition == -256)) {
+            //     console.log('nope there')
+            //     setBlocked(true)
+            //     return
+            // }
+            if (unlockedDoor === false && currentMap === 'house' && charYPosition === -160 && charXPosition === 0 && dir === 'w'){
+                return
+            } else if (unlockedBasement == false && currentMap === 'house' && charYPosition === -256 && charXPosition === 32 && dir === 'w'){
+                return
+            }
+            
+            axiosWithAuth()
+            .post('https://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
+            .then(res => {
+                if(res.data.error_msg == ""){
+                    let title = res.data.title
+                    title = title.split(',')
+                    setCharYPosition(parseInt(title[0])*-32)
+                    setCharXPosition(parseInt(title[1])*32)
+                    if(res.data.description != currentMap){
+                        setCurrentMap(res.data.description);
+                    }
                 } else{
                     
                 }

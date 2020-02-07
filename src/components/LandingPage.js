@@ -13,7 +13,7 @@ const LandingPage = () => {
 	useEffect(() => {
 		document.addEventListener('keydown', eventthing);
 	}, []);
-
+	
 	return (
 		<div className="landing-page">
 			<img src="./landing.jpeg" />

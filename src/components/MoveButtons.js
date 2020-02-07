@@ -2,26 +2,24 @@ import React, { useState, useReducer, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 // import { charSelect, initChar } from '../reducers/charReducer';
 
-const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc }) => {
+const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc, unlockedBasement, unlockedDoor, setUnlockedBasement, setUnlockedDoor, setBlocked}) => {
+
+    console.log(`current map: ${currentMap}`)
+    console.log(`(x, y): (${charXPosition}, ${charYPosition})`)
 
     useEffect(() => {
         document.addEventListener('keydown', event => {
-            console.log(charXPosition, charYPosition)
             switch(event.key) {
                 case 'a':
-                    console.log('w')
                     movePlayer('w')
                     break
                 case 'w':
-                    console.log('n')
                     movePlayer('n')
                     break
                 case 'd':
-                    console.log('e')
                     movePlayer('e')
                     break
                 case 's':
-                    console.log('s')
                     movePlayer('s')
                     break
                 default:
@@ -33,19 +31,38 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
     // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {
-          axiosWithAuth()
-          .post('https://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
-          .then(res => {
-              if(res.data.error_msg == ""){
-                  console.log(res);
-                let title = res.data.title
-                title = title.split(',')
-                setCharYPosition(parseInt(title[0])*-32)
-                setCharXPosition(parseInt(title[1])*32)
+            // setBlocked(false)
+            // console.log(unlockedDoor)
+            // console.log(unlockedBasement)
+            // console.log(currentMap)
+            // console.log(charXPosition)
+            // console.log(charYPosition)
+
+
+            if (unlockedDoor == false && currentMap == 'house' && (charXPosition == 0 && charYPosition == -160)) {
+                console.log('nope here')
+                setBlocked(true)
+                return
+            }
+            if (unlockedBasement == false && currentMap == 'house' && (charXPosition == 32 && charYPosition == -256)) {
+                console.log('nope there')
+                setBlocked(true)
+                return
+            }
+            
+            axiosWithAuth()
+            .post('https://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
+            .then(res => {
+                if(res.data.error_msg == ""){
+                    console.log(res);
+                    let title = res.data.title
+                    title = title.split(',')
+                    setCharYPosition(parseInt(title[0])*-32)
+                    setCharXPosition(parseInt(title[1])*32)
                 
-                if(res.data.description != currentMap){
-                    setCurrentMap(res.data.description);
-                }
+                    if(res.data.description != currentMap){
+                        setCurrentMap(res.data.description);
+                    }
                 } else{
                     
                 }

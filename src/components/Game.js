@@ -28,7 +28,7 @@ const Game = () => {
             }
         } else if (currentMap === 'house'){
             console.log(charYPosition, charXPosition)
-            if (charXPosition === 96 && charYPosition === -96 || charYPosition === -64){
+            if (charXPosition === 96 && charYPosition === -96 || charXPosition === 96 && charYPosition === -64){
                 setModalTrigger('message')
                 document.addEventListener('keydown', closeModal)
             }
@@ -66,7 +66,7 @@ const Game = () => {
                 />: null
             }
             <div className='modals'>
-                {modalTrigger === 'key' ? <p>You got the key! <br/> <span className='cont-txt'>PRESS ANY KEY TO CONTINUE</span></p> : modalTrigger === 'message' ? <p>There's a message here.<br/> <span className='cont-txt'>PRESS ANY KEY TO CONTINUE</span></p> : null}
+                {modalTrigger === 'key' ? <p>'About time you showed up!' <br/>You recieved a KEY<br/> <span className='cont-txt'>PRESS ANY KEY TO CONTINUE</span></p> : modalTrigger === 'message' ? <p>There's a message here.<br/> <span className='cont-txt'>PRESS ANY KEY TO CONTINUE</span></p> : null}
             </div>
             </div>
             <div className='game-right'>

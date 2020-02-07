@@ -1,31 +1,46 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer, useContext, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { MainContext } from '../contexts/MainContext';
 // import { charSelect, initChar } from '../reducers/charReducer';
 
-const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYPosition,state, dispatch, currentMap, setCurrentMap, desc, setDesc, specialRoom, setSpecialRoom, unlockedBasement, unlockedDoor, setUnlockedBasement, setUnlockedDoor, setBlocked}) => {
 
-    useEffect(() => {
-        document.addEventListener('keydown', event => {
-            console.log(event)
-            switch(event.key) {
-                case 'a':
-                    movePlayer('w')
-                    break
-                case 'w':
-                    movePlayer('n')
-                    break
-                case 'd':
-                    movePlayer('e')
-                    break
-                case 's':
-                    movePlayer('s')
-                    break
-                default:
-                    console.log('hi')
+const MoveButtons = ({ setCharXPosition, setCharYPosition,state, dispatch, setCurrentMap, desc, setDesc, modalTrigger}) => {
+    const {unlockedDoor, unlockedBasement, currentMap, charXPosition, charYPosition} = useContext(MainContext)
+    // let count = 0
+    // console.log(unlockedBasement)
+    // console.log(unlockedDoor)
+    // const addEL = () => {
+        
+    // }
+    // useEffect(() => {
+    //     // const eventthing = (x) =>{
+    //         //     document.removeEventListener('keydown', eventthing)
+    //         //     movePlayer(x)
+    //         // }
+    //         document.addEventListener('keydown', event => {
+                
+    //         console.log(`current map: ${currentMap}`)
+    //         console.log(`(x, y): (${charXPosition}, ${charYPosition})`)
+    //         switch(event.key) {
+    //             case 'a':
+    //                 movePlayer('w')
+    //                 break
+    //             case 'w':
+    //                 movePlayer('n')
+    //                 break
+    //             case 'd':
+    //                 movePlayer('e')
+    //                 break
+    //             case 's':
+    //                 movePlayer('s')
+    //                 break
+    //             default:
+    //                 movePlayer(null)
                     
-            }
-        })
-    },[])
+    //         }
+    //     })
+    
+    // },[modalTrigger])
     // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {
@@ -71,12 +86,12 @@ const MoveButtons = ({ charXPosition, setCharXPosition, charYPosition, setCharYP
         <div className='right-container'>
             <p className='world-desc'>{desc=="field" ? "FIELD OF AGONY": desc=="dungeon" ? "HAPPY CLAM DUNGEON" : desc=="house" ? "ABODE OF BABY CHIMKIN" : desc=="basement" ? "PEEPERS CAVERN" : null}</p>
         <div className='movement-buttons'>
-            <img src='./wup.png' onClick={()=>movePlayer('n')} />
+            <img src='./uparrow.png' onClick={()=>movePlayer('n')} />
             <div className='center-buttons'>
-            <img className='left-arrow' src='./aleft.png' onClick={()=>movePlayer('w')}/>
-            <img src='./dright.png' onClick={()=>movePlayer('e')} />
+            <img className='left-arrow' src='./leftarrow.png' onClick={()=>movePlayer('w')}/>
+            <img src='./rightarrow.png' onClick={()=>movePlayer('e')} />
             </div>
-            <img src='./sdown.png' onClick={()=>movePlayer('s')} />
+            <img src='./downarrow.png' onClick={()=>movePlayer('s')} />
         </div>
         {state.avail.map(char => <img src={`./${char}.png`} onClick={()=>dispatch({type: 'SET_CHAR', payload: char})}/>)}
         {/* <img src='./julie.png' /><img src='./ryan.png'/><img src='./isla.png'/> */}

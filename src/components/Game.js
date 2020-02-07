@@ -115,7 +115,7 @@ const Game = (props) => {
                           return (<><p>'About time you showed up!' <br/>You recieved a KEY<br/> </p> 
                           <button onClick={getKey}><span className='cont-text'></span>Continue</button></>)
                         case 'message':
-                            return (<><p>There's a message here.</p>  
+                            return (<><p>There's a message on the table. <br/> <span className='table-message'>You're probably wondering what you're doing here. Don't we all... To find out, seek the hidden path to find the answer to all things.</span></p>  
                             <button onClick={getMessage}><span className='cont-text'></span>Continue</button></>)
                         case 'door':
                             return (<><p>You have a feeling you're forgetting something...</p>

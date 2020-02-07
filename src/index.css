@@ -171,6 +171,10 @@ body{
   padding: 6px;
 }
 
+.table-message{
+  font-size: 8px;
+}
+
 .modals button{
   border: 3px solid black;
 }

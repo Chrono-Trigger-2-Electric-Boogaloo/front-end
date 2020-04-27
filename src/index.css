@@ -130,9 +130,9 @@ body{
 
 .signup, .signin{
   position: absolute;
-  top: 32%;
-  left: 34%;
-  
+  top: 22%;
+  left: 31%;
+  width: 400px;
 }
 
 .signup form, .signin form{
@@ -156,6 +156,15 @@ body{
 .login-error{
   margin-top: 10px;
   max-width: 300px;
+  color: red;
+}
+
+.err-display{
+  color: red;
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+  min-height: 40px;
 }
 
 .modals{

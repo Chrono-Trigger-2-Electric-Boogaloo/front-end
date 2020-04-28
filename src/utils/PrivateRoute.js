@@ -14,7 +14,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 				else{
 					alert("Must be logged in to do that!")
 					console.log('Failed to login, redirecting');
-					return <Redirect to='/index' />;	
+					return <Redirect to='/' />;	
 				}
 			}}
 		/>

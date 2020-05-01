@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Loader from 'react-loader-spinner';
 
 class SignIn extends React.Component {
     constructor(props){
@@ -10,7 +11,8 @@ class SignIn extends React.Component {
             username: '',
             password: ''
         },
-        error: ''
+        error: '',
+        loading: false
         }
     };
     handleChange = e => {
@@ -24,19 +26,25 @@ class SignIn extends React.Component {
     handleSubmit = e => {
         // let localStorage;
         e.preventDefault();
+        this.setState({
+            ...this.state,
+            loading: true
+        })
         axios.post('https://chronotrigger-remake.herokuapp.com/api/login/', this.state.credentials)
         .then(res => {
-            console.log('Res', res.data.key)
            localStorage.setItem('token', res.data.key)
-            console.log('Signed in with success')
+           this.setState({
+               ...this.state,
+               loading: false
+            })
             this.props.history.push('/play');
         })
         .catch(err => {
             this.setState({
                 ...this.state,
-                error: 'Incorrect email or password'
+                error: 'Incorrect email or password',
+                loading: false
             })
-            console.log(err)
         })
     }
     render(){
@@ -44,6 +52,16 @@ class SignIn extends React.Component {
             <div className='main-container'>
                 <img className='bg-img' src='./mainbg.jpeg'/>
                 <div className='signin'>
+                    {this.state.loading ? 
+                          <div className='loading'>
+                          <span >Loading</span>
+                              <Loader
+                              type="ThreeDots"
+                              color="white"
+                              height={50}
+                              width={50}
+                           />
+                           </div>: 
                 <form onSubmit={this.handleSubmit}>
                     <input
                     type="text"
@@ -65,6 +83,7 @@ class SignIn extends React.Component {
                         {this.state.error ? this.state.error : null}
                     </p>
                 </form>
+    }
                 </div>
             </div>
         )

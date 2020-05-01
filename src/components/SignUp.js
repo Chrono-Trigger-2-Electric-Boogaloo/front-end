@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Loader from "react-loader-spinner";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -11,54 +12,50 @@ class SignUp extends React.Component {
         password2: "",
       },
       errors: {
-          password1: [],
-          username: []
+        password1: [],
+        username: [],
       },
+      loading: false,
     };
   }
 
   addUser = (e) => {
     e.preventDefault();
-    if (this.state.credentials.password1 === this.state.credentials.password2){
-    axios
-      .post(
-        "https://chronotrigger-remake.herokuapp.com/api/registration/ ",
-        this.state.credentials
-      )
-      .then((res) => {
-        localStorage.setItem("token", res.data.key);
-        console.log("User created", res);
-        this.props.history.push("/play");
-      })
-      .catch((err) => {
-        console.log(err.response);
-        this.setState({
-          ...this.state,
-          errors: err.response.data,
-        });
-        // let errArray = []
-        // errArray = err.response.data.password1 ? [...err.response.data.password1] : errArray
-        // errArray = err.response.data.username ? [...errArray, ...err.response.data.username] : errArray
-        // this.setState({
-        //     ...this.state,
-        //     error: errArray
-        // })
-      });
-    } else{
-        this.setState({
+    this.setState({
+      ...this.state,
+      loading: true,
+    });
+    if (this.state.credentials.password1 === this.state.credentials.password2) {
+      axios
+        .post(
+          "https://chronotrigger-remake.herokuapp.com/api/registration/ ",
+          this.state.credentials
+        )
+        .then((res) => {
+          localStorage.setItem("token", res.data.key);
+          this.setState({
             ...this.state,
-            errors: {
-                ...this.state.error,
-                password1: ['Passwords do not match']
-            }
+            loading: false,
+          });
+          this.props.history.push("/play");
         })
-    //    this.setState({
-    //        ...this.state,
-    //        error: ['Passwords do not match']
-    //    })
-
+        .catch((err) => {
+          this.setState({
+            ...this.state,
+            errors: err.response.data,
+            loading: false,
+          });
+        });
+    } else {
+      this.setState({
+        ...this.state,
+        errors: {
+          ...this.state.error,
+          password1: ["Passwords do not match"],
+        },
+        loading: false,
+      });
     }
-
   };
   handleChange = (e) => {
     this.setState({
@@ -67,47 +64,52 @@ class SignUp extends React.Component {
         [e.target.name]: e.target.value,
       },
     });
-
   };
   render() {
     return (
       <div className="main-container">
         <img className="bg-img" src="./mainbg.jpeg" />
         <div className="signup">
-          <form onSubmit={this.addUser}>
-            <input
-              name="username"
-              type="text"
-              placeholder="Username"
-              value={this.state.credentials.username}
-              onChange={this.handleChange}
-              required
-            />
-   <p className='err-display'>
-           {this.state.errors.username && this.state.errors.username[0]}
-            </p>
-            <input
-              name="password1"
-              type="password"
-              placeholder="Password"
-              value={this.state.credentials.password1}
-              onChange={this.handleChange}
-              required
-            />
-            <input
-              name="password2"
-              type="password"
-              placeholder="Confirm Password"
-              value={this.state.credentials.password2}
-              onChange={this.handleChange}
-              required
-            />
-             <p className='err-display'>
-           {this.state.errors.password1 && this.state.errors.password1[0]}
-            </p>
-            <button>Sign Up!</button>
-           
-          </form>
+          {this.state.loading ? (
+            <div className="loading">
+              <span>Loading</span>
+              <Loader type="ThreeDots" color="white" height={50} width={50} />
+            </div>
+          ) : (
+            <form onSubmit={this.addUser}>
+              <input
+                name="username"
+                type="text"
+                placeholder="Username"
+                value={this.state.credentials.username}
+                onChange={this.handleChange}
+                required
+              />
+              <p className="err-display">
+                {this.state.errors.username && this.state.errors.username[0]}
+              </p>
+              <input
+                name="password1"
+                type="password"
+                placeholder="Password"
+                value={this.state.credentials.password1}
+                onChange={this.handleChange}
+                required
+              />
+              <input
+                name="password2"
+                type="password"
+                placeholder="Confirm Password"
+                value={this.state.credentials.password2}
+                onChange={this.handleChange}
+                required
+              />
+              <p className="err-display">
+                {this.state.errors.password1 && this.state.errors.password1[0]}
+              </p>
+              <button>Sign Up!</button>
+            </form>
+          )}
         </div>
       </div>
     );

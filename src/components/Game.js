@@ -7,7 +7,6 @@ import ReactPlayer from 'react-player';
 import { MainContext } from '../contexts/MainContext';
 
 const Game = (props) => {
-	console.log(props)
 
     const [charXPosition, setCharXPosition] = useState(null)
     const [charYPosition, setCharYPosition] = useState(null)

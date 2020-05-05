@@ -57,6 +57,22 @@ class SignUp extends React.Component {
       });
     }
   };
+
+  createGuest = (e) => {
+    const randomNum = Math.ceil(Math.random() * 10000000000)
+    const guestCreds = {
+      username: randomNum,
+      password1: `${randomNum}abc`,
+      password2: `${randomNum}abc`
+    }
+    this.setState({
+      ...this.state,
+      credentials : guestCreds
+    }, 
+    this.addUser.bind(this, e)
+    )
+  }
+
   handleChange = (e) => {
     this.setState({
       credentials: {
@@ -65,6 +81,7 @@ class SignUp extends React.Component {
       },
     });
   };
+  
   render() {
     return (
       <div className="main-container">
@@ -107,7 +124,8 @@ class SignUp extends React.Component {
               <p className="err-display">
                 {this.state.errors.password1 && this.state.errors.password1[0]}
               </p>
-              <button>Sign Up!</button>
+              <button onClick={this.addUser}>Sign Up!</button>
+              <button onClick={(e)=>this.createGuest(e)}>Continue as Guest</button>
             </form>
           )}
         </div>

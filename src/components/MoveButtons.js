@@ -6,57 +6,10 @@ import { MainContext } from '../contexts/MainContext';
 
 const MoveButtons = ({ setCharXPosition, setCharYPosition,state, dispatch, setCurrentMap, desc, setDesc, modalTrigger}) => {
     const {unlockedDoor, unlockedBasement, currentMap, charXPosition, charYPosition} = useContext(MainContext)
-    // let count = 0
-    // console.log(unlockedBasement)
-    // console.log(unlockedDoor)
-    // const addEL = () => {
-        
-    // }
-    // useEffect(() => {
-    //     // const eventthing = (x) =>{
-    //         //     document.removeEventListener('keydown', eventthing)
-    //         //     movePlayer(x)
-    //         // }
-    //         document.addEventListener('keydown', event => {
-                
-    //         console.log(`current map: ${currentMap}`)
-    //         console.log(`(x, y): (${charXPosition}, ${charYPosition})`)
-    //         switch(event.key) {
-    //             case 'a':
-    //                 movePlayer('w')
-    //                 break
-    //             case 'w':
-    //                 movePlayer('n')
-    //                 break
-    //             case 'd':
-    //                 movePlayer('e')
-    //                 break
-    //             case 's':
-    //                 movePlayer('s')
-    //                 break
-    //             default:
-    //                 movePlayer(null)
-                    
-    //         }
-    //     })
     
-    // },[modalTrigger])
-    // const [state, dispatch] = useReducer(charSelect, initChar)
 
         const movePlayer = (dir) => {
-            // setBlocked(false)
-
-
-            // if (unlockedDoor == false && currentMap == 'house' && (charXPosition == 0 && charYPosition == -160)) {
-            //     console.log('nope here')
-            //     setBlocked(true)
-            //     return
-            // }
-            // if (unlockedBasement == false && currentMap == 'house' && (charXPosition == 32 && charYPosition == -256)) {
-            //     console.log('nope there')
-            //     setBlocked(true)
-            //     return
-            // }
+     
             if (unlockedDoor === false && currentMap === 'house' && charYPosition === -160 && charXPosition === 0 && dir === 'w'){
                 return
             } else if (unlockedBasement == false && currentMap === 'house' && charYPosition === -256 && charXPosition === 32 && dir === 'w'){
@@ -94,7 +47,6 @@ const MoveButtons = ({ setCharXPosition, setCharYPosition,state, dispatch, setCu
             <img src='./downarrow.png' onClick={()=>movePlayer('s')} />
         </div>
         {state.avail.map(char => <img src={`./${char}.png`} onClick={()=>dispatch({type: 'SET_CHAR', payload: char})}/>)}
-        {/* <img src='./julie.png' /><img src='./ryan.png'/><img src='./isla.png'/> */}
         </div>
     )
 }

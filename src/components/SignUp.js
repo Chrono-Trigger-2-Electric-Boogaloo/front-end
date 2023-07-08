@@ -22,7 +22,7 @@ class SignUp extends React.Component {
     if (this.state.credentials.password1 === this.state.credentials.password2){
     axios
       .post(
-        "https://chronotrigger-remake.herokuapp.com/api/registration/ ",
+        "http://127.0.0.1:8000/api/registration/",
         this.state.credentials
       )
       .then((res) => {

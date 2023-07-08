@@ -24,7 +24,7 @@ class SignIn extends React.Component {
     handleSubmit = e => {
         // let localStorage;
         e.preventDefault();
-        axios.post('https://chronotrigger-remake.herokuapp.com/api/login/', this.state.credentials)
+        axios.post('http://127.0.0.1:8000/api/login/', this.state.credentials)
         .then(res => {
             console.log('Res', res.data.key)
            localStorage.setItem('token', res.data.key)

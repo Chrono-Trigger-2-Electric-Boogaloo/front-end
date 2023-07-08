@@ -76,7 +76,7 @@ const Game = (props) => {
 
     useEffect(()=>{
             axiosWithAuth()
-            .get('https://chronotrigger-remake.herokuapp.com/api/adv/init/')
+            .get('http://127.0.0.1:8000/api/adv/init/')
             .then(res => {
                 let title = res.data.title
                 title = title.split(',')

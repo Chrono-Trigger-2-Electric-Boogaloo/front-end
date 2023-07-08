@@ -64,7 +64,7 @@ const MoveButtons = ({ setCharXPosition, setCharYPosition,state, dispatch, setCu
             }
             
             axiosWithAuth()
-            .post('https://chronotrigger-remake.herokuapp.com/api/adv/move/', {"direction": dir})
+            .post('http://127.0.0.1:8000/api/adv/move/', {"direction": dir})
             .then(res => {
                 if(res.data.error_msg == ""){
                     let title = res.data.title

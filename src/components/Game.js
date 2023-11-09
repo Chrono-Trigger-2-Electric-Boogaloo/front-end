@@ -20,7 +20,7 @@ const Game = (props) => {
     const [unlockedBasement, setUnlockedBasement] = useState(false)
     const [unlockedDoor, setUnlockedDoor] = useState(false)
 	// const [isblocked, setBlocked] = useState(false)
-	const [music, setMusic] = useState();
+	// const [music, setMusic] = useState();
 
 	
 	
@@ -58,7 +58,7 @@ const Game = (props) => {
             }
         } else if (currentMap === 'house'){
             
-            if (charXPosition === 96 && charYPosition === -96 || charXPosition === 96 && charYPosition === -64){
+            if ((charXPosition === 96 && charYPosition === -96) || (charXPosition === 96 && charYPosition === -64)){
                 setModalTrigger('message')
                 //document.addEventListener('keydown', closeModal)
             } else if (charYPosition === -160 && charXPosition === 0 && unlockedDoor === false){ //add unlocked conditional
@@ -159,7 +159,7 @@ const Game = (props) => {
                 </MainContext.Provider>
             </div>
         </div>
-		{gameRunning && specialRoom == 'video' && modalTrigger=='' &&  (
+		{gameRunning && specialRoom === 'video' && modalTrigger==='' &&  (
 				<ReactPlayer
 					url="credits.mp4"
 					playing

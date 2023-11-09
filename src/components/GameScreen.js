@@ -1,5 +1,4 @@
-import React, { useReducer } from 'react'
-import { charSelect, initChar } from '../reducers/charReducer'
+import React from 'react'
 
 const GameScreen = ({ charXPosition, charYPosition, state, currentMap }) => {
     const charStyle ={

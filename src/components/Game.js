@@ -85,7 +85,7 @@ const Game = (props) => {
                 setCurrentMap(res.data.description)
 				setDesc(res.data.description)
             })
-                  .catch(err => console.log(err.response))
+                  .catch()
     },[])
     return(
         <div className='main-container' >

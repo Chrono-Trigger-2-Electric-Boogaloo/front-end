@@ -20,30 +20,15 @@ class SignUp extends React.Component {
   addUser = (e) => {
     e.preventDefault();
     if (this.state.credentials.password1 === this.state.credentials.password2){
-    axios
-      .post(
-        "https://chronotrigger-remake.herokuapp.com/api/registration/ ",
-        this.state.credentials
-      )
-      .then((res) => {
-        localStorage.setItem("token", res.data.key);
-        console.log("User created", res);
-        this.props.history.push("/play");
-      })
-      .catch((err) => {
-        console.log(err.response);
-        this.setState({
-          ...this.state,
-          errors: err.response.data,
-        });
-        // let errArray = []
-        // errArray = err.response.data.password1 ? [...err.response.data.password1] : errArray
-        // errArray = err.response.data.username ? [...errArray, ...err.response.data.username] : errArray
-        // this.setState({
-        //     ...this.state,
-        //     error: errArray
-        // })
-      });
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}api/registration/ `, this.state.credentials)
+        .then(res => {
+          setTimeout(1000)
+          this.loginUser()
+        })
+        .catch (e => {
+          console.log(e)
+        })
+
     } else{
         this.setState({
             ...this.state,
@@ -56,10 +41,28 @@ class SignUp extends React.Component {
     //        ...this.state,
     //        error: ['Passwords do not match']
     //    })
-
     }
-
   };
+
+  loginUser = () => {
+    let loginCredentials = {
+      username: this.state.credentials.username,
+      password: this.state.credentials.password1,
+    }
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}api/login/`, loginCredentials)
+    .then(res => {
+       localStorage.setItem('token', res.data.key)
+        this.props.history.push('/play');
+    })
+    .catch(err => {
+        this.setState({
+            ...this.state,
+            error: 'Incorrect email or password'
+        })
+        console.log(err)
+    })
+  }
+
   handleChange = (e) => {
     this.setState({
       credentials: {

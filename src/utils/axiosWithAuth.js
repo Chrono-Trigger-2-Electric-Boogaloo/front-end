@@ -5,9 +5,8 @@ export const axiosWithAuth = () => {
     const token = localStorage.getItem("token");
 
     return axios.create({
-        baseURL: 'https://chronotrigger-remake.herokuapp.com/',
+        baseURL: `${process.env.REACT_APP_BACKEND_URL}`,
         headers: {
-            // Authorization: "Token fd80ff4bdfaced495a7991320427a82b98b3a98b"
             Authorization: `Token ${token}`
         }
     });
